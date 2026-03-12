@@ -1,0 +1,141 @@
+---
+// src/pages/libri/[slug].astro
+// Questo è il template dinamico per ogni singolo libro
+
+export const prerender = true;
+
+// 1. In futuro, questa funzione pescherà i dati direttamente da Keystatic/GitHub
+export async function getStaticPaths() {
+  // Esempio di dati che arriveranno dal database
+  const libri = [
+    { slug: 'oscar-wilde-il-sogno-italiano', title: 'Oscar Wilde il sogno italiano' },
+    { slug: 'leggende-napoletane', title: 'Leggende napoletane' },
+  ];
+
+  return libri.map((libro) => ({
+    params: { slug: libro.slug },
+    props: { libro },
+  }));
+}
+
+const { slug } = Astro.params;
+// Simuliamo il recupero dei dati completi del libro
+const libro = {
+  titolo: "Oscar Wilde il sogno italiano",
+  autore: "Renato Miracco",
+  collana: "Fuori Collana",
+  prezzo: "18,00 €",
+  isbn: "9788899716493",
+  pagine: "160",
+  formato: "14 x 21 cm",
+  descrizione: "Un viaggio attraverso i documenti inediti che raccontano il legame profondo e passionale di Oscar Wilde con l'Italia. Il volume ricostruisce le tappe del soggiorno del poeta, offrendo una prospettiva nuova e affascinante sulla sua produzione letteraria e sulla sua vita privata.",
+  copertina: "https://www.colonneselibrerie.it/wp-content/uploads/2026/03/9788899716493-1.jpg"
+};
+---
+
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{libro.titolo} - Colonnese Editore</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+      :root { --colonnese-red: #bc2026; --text-dark: #1a1a1a; --border: #e5e5e5; }
+      body { font-family: 'Inter', sans-serif; color: var(--text-dark); background: #fff; margin: 0; line-height: 1.6; }
+      .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+
+      /* Briciole di pane / Torna indietro */
+      .back-link { text-decoration: none; color: #888; font-size: 0.9rem; display: inline-block; margin-bottom: 40px; transition: color 0.2s; }
+      .back-link:hover { color: var(--colonnese-red); }
+
+      .scheda-prodotto { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: start; }
+
+      /* Immagine protetta (No Crop) */
+      .copertina-wrapper { 
+        background: #f9f9f9; 
+        padding: 40px; 
+        border: 1px solid #eee; 
+        display: flex; 
+        justify-content: center; 
+        position: sticky; 
+        top: 120px; 
+      }
+      .copertina-wrapper img { 
+        max-width: 100%; 
+        height: auto; 
+        max-height: 600px;
+        object-fit: contain; 
+        box-shadow: 0 15px 40px rgba(0,0,0,0.15); 
+      }
+
+      /* Info Libro */
+      .collana-tag { color: var(--colonnese-red); text-transform: uppercase; font-weight: 700; font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 10px; display: block; }
+      h1 { font-family: 'Lora', serif; font-size: 3rem; font-weight: 400; margin: 0 0 10px 0; line-height: 1.1; }
+      .autore-nome { font-size: 1.5rem; color: #555; margin-bottom: 30px; }
+      
+      .prezzo { font-size: 2rem; font-weight: 700; margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
+
+      .sinossi { font-size: 1.1rem; color: #333; margin-bottom: 40px; text-align: justify; }
+
+      /* Tabella Dati Tecnici */
+      .dati-tecnici { background: #fdfdfd; border: 1px solid #eee; padding: 25px; margin-bottom: 40px; }
+      .dati-tecnici h3 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+      .grid-dati { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 0.9rem; }
+      .grid-dati div span { color: #888; display: block; font-size: 0.75rem; text-transform: uppercase; }
+
+      .btn-acquisto { 
+        display: block; 
+        text-align: center; 
+        background: var(--text-dark); 
+        color: #fff; 
+        text-decoration: none; 
+        padding: 20px; 
+        font-weight: 700; 
+        text-transform: uppercase; 
+        transition: 0.3s; 
+      }
+      .btn-acquisto:hover { background: var(--colonnese-red); transform: translateY(-3px); }
+
+      @media (max-width: 992px) {
+        .scheda-prodotto { grid-template-columns: 1fr; gap: 40px; }
+        .copertina-wrapper { position: relative; top: 0; padding: 20px; }
+        h1 { font-size: 2.2rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a href="/libri" class="back-link">← Torna al catalogo</a>
+
+      <div class="scheda-prodotto">
+        <div class="copertina-wrapper">
+          <img src={libro.copertina} alt={`Copertina di ${libro.titolo}`} />
+        </div>
+
+        <div class="libro-details">
+          <span class="collana-tag">{libro.collana}</span>
+          <h1>{libro.titolo}</h1>
+          <p class="autore-nome">{libro.autore}</p>
+          
+          <div class="prezzo">{libro.prezzo}</div>
+
+          <div class="sinossi">
+            {libro.descrizione}
+          </div>
+
+          <div class="dati-tecnici">
+            <h3>Dettagli del volume</h3>
+            <div class="grid-dati">
+              <div><span>ISBN</span><strong>{libro.isbn}</strong></div>
+              <div><span>Pagine</span><strong>{libro.pagine}</strong></div>
+              <div><span>Formato</span><strong>{libro.formato}</strong></div>
+              <div><span>Collana</span><strong>{libro.collana}</strong></div>
+            </div>
+          </div>
+
+          <a href="#" class="btn-acquisto">Acquista il volume</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

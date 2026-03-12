@@ -1,0 +1,83 @@
+---
+// src/pages/collane/[slug].astro
+export const prerender = true;
+
+const collana = {
+  nome: "Lo Specchio di Silvia",
+  descrizione: "Fondata con l'intento di riportare alla luce testi dimenticati o mai tradotti, questa collana rappresenta l'anima più curiosa e raffinata di Colonnese.",
+};
+
+const libriDellaCollana = [
+  { title: "Oscar Wilde il sogno italiano", slug: "oscar-wilde-il-sogno-italiano", cover: "https://www.colonneselibrerie.it/wp-content/uploads/2026/03/9788899716493-1.jpg", autore: "Renato Miracco" },
+  { title: "Vita napoletana", slug: "vita-napoletana", cover: "https://www.colonneselibrerie.it/wp-content/uploads/2026/02/9791281142350-3.jpg", autore: "Onorato Fava" }
+];
+---
+
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <title>{collana.nome} - Colonnese Editore</title>
+    <style>
+      :root { --colonnese-red: #bc2026; }
+      body { font-family: 'Inter', sans-serif; margin: 0; }
+      .container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
+
+      .intro-collana { 
+        background: #f9f9f9; 
+        padding: 80px 40px; 
+        text-align: center; 
+        margin-bottom: 60px; 
+        border-bottom: 1px solid #eee;
+      }
+      .intro-collana h1 { font-family: 'Lora', serif; font-size: 3.5rem; margin-bottom: 20px; font-weight: 400; }
+      .intro-collana p { max-width: 700px; margin: 0 auto; font-size: 1.1rem; color: #555; line-height: 1.6; }
+
+      /* Griglia Libri (Stile Colonnese) */
+      .libri-grid { 
+        display: grid; 
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+        gap: 40px; 
+      }
+      .libro-card { text-decoration: none; color: inherit; display: block; }
+      .copertina-box { 
+        background: #fff; 
+        padding: 15px; 
+        border: 1px solid #eee; 
+        aspect-ratio: 2/3; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        margin-bottom: 15px;
+        transition: 0.3s;
+      }
+      .libro-card:hover .copertina-box { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+      .copertina-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
+      
+      .libro-card h3 { font-family: 'Lora', serif; font-size: 1.1rem; margin: 5px 0; }
+      .libro-card p { font-size: 0.8rem; color: #888; text-transform: uppercase; font-weight: 700; }
+    </style>
+  </head>
+  <body>
+    <div class="intro-collana">
+      <div class="container">
+        <a href="/collane" style="text-decoration: none; color: var(--colonnese-red); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">Tutte le collane</a>
+        <h1>{collana.nome}</h1>
+        <p>{collana.descrizione}</p>
+      </div>
+    </div>
+
+    <main class="container">
+      <div class="libri-grid">
+        {libriDellaCollana.map((l) => (
+          <a href={`/libri/${l.slug}`} class="libro-card">
+            <div class="copertina-box">
+              <img src={l.cover} alt={l.title} />
+            </div>
+            <p>{l.autore}</p>
+            <h3>{l.title}</h3>
+          </a>
+        ))}
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,115 @@
+---
+// src/pages/autori/index.astro
+const title = "I nostri Autori | Colonnese Editore";
+
+// Esempio di dati che arriveranno da Keystatic
+const autori = [
+  { 
+    nome: "Matilde Serao", 
+    slug: "matilde-serao", 
+    foto: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Matilde_Serao.jpg/800px-Matilde_Serao.jpg", 
+    ruolo: "Scrittrice e Giornalista" 
+  },
+  { 
+    nome: "Renato Miracco", 
+    slug: "renato-miracco", 
+    foto: "https://via.placeholder.com/400x500", 
+    ruolo: "Storico dell'arte" 
+  },
+  { 
+    nome: "Onorato Fava", 
+    slug: "onorato-fava", 
+    foto: "https://via.placeholder.com/400x500", 
+    ruolo: "Scrittore" 
+  }
+];
+---
+
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+      :root { --colonnese-red: #bc2026; --text-dark: #1a1a1a; --border: #eee; }
+      body { font-family: 'Inter', sans-serif; color: var(--text-dark); background: #fff; margin: 0; }
+      .container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
+      
+      .header-sezione { text-align: center; margin-bottom: 80px; }
+      .header-sezione h1 { font-family: 'Lora', serif; font-size: 3.5rem; font-weight: 400; margin-bottom: 10px; }
+      .header-sezione p { color: #666; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; }
+
+      /* Griglia Autori */
+      .autori-grid { 
+        display: grid; 
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+        gap: 60px 40px; 
+      }
+
+      .autore-card { text-decoration: none; color: inherit; group; }
+      
+      .foto-container { 
+        width: 100%; 
+        aspect-ratio: 4/5; 
+        background: #f4f4f4; 
+        overflow: hidden; 
+        margin-bottom: 20px; 
+        border: 1px solid var(--border);
+      }
+
+      .foto-container img { 
+        width: 100%; 
+        height: 100%; 
+        object-fit: cover; 
+        filter: grayscale(100%);
+        transition: all 0.5s ease;
+      }
+
+      .autore-card:hover img { 
+        filter: grayscale(0%); 
+        transform: scale(1.05);
+      }
+
+      .info-autore h2 { 
+        font-family: 'Lora', serif; 
+        font-size: 1.6rem; 
+        margin: 0; 
+        font-weight: 400; 
+        transition: color 0.3s;
+      }
+      .autore-card:hover h2 { color: var(--colonnese-red); }
+
+      .ruolo { 
+        font-size: 0.8rem; 
+        color: #888; 
+        text-transform: uppercase; 
+        letter-spacing: 1px; 
+        margin-top: 5px; 
+        display: block; 
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <div class="header-sezione">
+        <p>I volti della nostra cultura</p>
+        <h1>Gli Autori</h1>
+      </div>
+
+      <div class="autori-grid">
+        {autori.map((autore) => (
+          <a href={`/autori/${autore.slug}`} class="autore-card">
+            <div class="foto-container">
+              <img src={autore.foto} alt={autore.nome} />
+            </div>
+            <div class="info-autore">
+              <h2>{autore.nome}</h2>
+              <span class="ruolo">{autore.ruolo}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </main>
+  </body>
+</html>

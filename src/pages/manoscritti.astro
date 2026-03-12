@@ -1,0 +1,121 @@
+---
+// src/pages/manoscritti.astro
+const title = "Invio Manoscritti | Colonnese Editore";
+---
+
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+      :root { --colonnese-red: #bc2026; --text-dark: #1a1a1a; --border: #e5e5e5; --bg-pale: #f9f9f9; }
+      body { font-family: 'Inter', sans-serif; color: var(--text-dark); background: #fff; margin: 0; line-height: 1.6; }
+      
+      /* REPLICA HEADER HOMEPAGE */
+      .main-header { border-bottom: 1px solid var(--border); padding: 30px 0; text-align: center; position: sticky; top: 0; background: #fff; z-index: 100; }
+      .logo { font-family: 'Lora', serif; font-size: 1.8rem; text-decoration: none; color: #000; text-transform: uppercase; letter-spacing: 4px; }
+      
+      .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+      /* SEZIONE 1: HERO (Titolo e Intro) */
+      .hero-section { padding: 100px 0; border-bottom: 1px solid var(--border); text-align: center; }
+      .hero-section span { text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; color: var(--colonnese-red); font-weight: 700; }
+      .hero-section h1 { font-family: 'Lora', serif; font-size: 4rem; font-weight: 400; margin: 20px 0; }
+      .hero-section p { max-width: 700px; margin: 0 auto; font-size: 1.25rem; color: #555; font-family: 'Lora', serif; font-style: italic; }
+
+      /* SEZIONE 2: GRIGLIA GENERI (Alternanza Grigio) */
+      .dark-section { background: var(--bg-pale); padding: 100px 0; }
+      .section-label { text-align: center; margin-bottom: 60px; }
+      .section-label h2 { font-family: 'Lora', serif; font-size: 2.5rem; font-weight: 400; }
+
+      .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+      .card { background: #fff; padding: 50px; border: 1px solid var(--border); transition: 0.4s; }
+      .card:hover { transform: translateY(-10px); border-color: var(--colonnese-red); }
+      .card h3 { font-family: 'Lora', serif; font-size: 1.6rem; margin-bottom: 20px; color: var(--colonnese-red); }
+
+      /* SEZIONE 3: PROTOCOLLO (Bianco) */
+      .protocol-section { padding: 100px 0; }
+      .protocol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+      
+      .step { margin-bottom: 40px; display: flex; gap: 20px; }
+      .step-number { font-family: 'Lora', serif; font-size: 2rem; color: #ccc; }
+      .step-content h4 { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 10px 0; }
+
+      /* REPLICA FOOTER HOMEPAGE */
+      footer { background: var(--text-dark); color: #fff; padding: 80px 0; margin-top: 100px; text-align: center; }
+      .footer-logo { font-family: 'Lora', serif; font-size: 1.5rem; letter-spacing: 3px; margin-bottom: 20px; display: block; }
+    </style>
+  </head>
+  <body>
+
+    <header class="main-header">
+      <a href="/" class="logo">Colonnese</a>
+    </header>
+
+    <section class="hero-section">
+      <div class="container">
+        <span>Laboratorio Editoriale</span>
+        <h1>Proposte di Stampa</h1>
+        <p>Cerchiamo opere che abbiano il coraggio della ricerca e il respiro della grande tradizione.</p>
+      </div>
+    </section>
+
+    <section class="dark-section">
+      <div class="container">
+        <div class="section-label">
+          <h2>Ambiti di Ricerca</h2>
+        </div>
+        <div class="grid-container">
+          <div class="card">
+            <h3>Saggistica</h3>
+            <p>Studi napoletani, meridionalismo e iconografia storica.</p>
+          </div>
+          <div class="card">
+            <h3>Narrativa</h3>
+            <p>Voci nuove e riscoperte letterarie d'eccellenza.</p>
+          </div>
+          <div class="card">
+            <h3>Varia</h3>
+            <p>Guide d'arte, bibliofilia e curiosità editoriali.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="protocol-section">
+      <div class="container">
+        <div class="protocol-grid">
+          <div>
+            <h2 style="font-family: 'Lora', serif; font-size: 2.8rem; font-weight: 400;">Il Protocollo <br>di Valutazione</h2>
+          </div>
+          <div>
+            <div class="step">
+              <span class="step-number">01.</span>
+              <div class="step-content">
+                <h4>Materiale Digitale</h4>
+                <p>Inviare esclusivamente file in formato PDF. Non accettiamo supporti fisici o manoscritti cartacei.</p>
+              </div>
+            </div>
+            <div class="step">
+              <span class="step-number">02.</span>
+              <div class="step-content">
+                <h4>Corredo</h4>
+                <p>La proposta deve contenere sinossi, indice e una nota biografica dell'autore.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <span class="footer-logo">COLONNESE EDITORE</span>
+        <p>© 1965-2026 — Napoli, Via San Pietro a Majella 32/33</p>
+      </div>
+    </footer>
+
+  </body>
+</html>

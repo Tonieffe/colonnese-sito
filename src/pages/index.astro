@@ -1,0 +1,318 @@
+---
+// src/pages/index.astro
+// IDENTITÀ VISIVA COLONNESE EDITORE - VERSIONE DEFINITIVA 2026
+const title = "Colonnese Editore | Libri, Cultura, Passione a Napoli";
+const description = "Sito ufficiale di Colonnese Editore. Scopri il nostro catalogo, le leggende napoletane e le novità editoriali.";
+
+const heroSlides = [
+  { 
+    titolo: "Oscar Wilde<br><span style='color:#bc2026;'>il sogno italiano</span>", 
+    descrizione: "Un viaggio attraverso i documenti inediti che raccontano il legame profondo e passionale di Oscar Wilde con l'Italia.",
+    immagine: "https://www.colonneselibrerie.it/wp-content/uploads/2026/03/9788899716493-1.jpg",
+    link: "/libri/oscar-wilde-il-sogno-italiano",
+    autore: "Renato Miracco"
+  },
+  { 
+    titolo: "Leggende<br><span style='color:#bc2026;'>napoletane</span>", 
+    descrizione: "Il capolavoro di Matilde Serao che svela il cuore magico e misterioso di Napoli. Un'esplorazione affascinante tra miti e fantasmi.",
+    immagine: "https://www.colonneselibrerie.it/wp-content/uploads/2026/02/9788899716868-1.jpg",
+    link: "/libri/leggende-napoletane",
+    autore: "Matilde Serao"
+  }
+];
+
+const libriInEvidenza = [
+    { title: "Oscar Wilde il sogno italiano", slug: "oscar-wilde-il-sogno-italiano", autore: "Renato Miracco", cover: "https://www.colonneselibrerie.it/wp-content/uploads/2026/03/9788899716493-1.jpg" },
+    { title: "Vita napoletana", slug: "vita-napoletana", autore: "Onorato Fava", cover: "https://www.colonneselibrerie.it/wp-content/uploads/2026/02/9791281142350-3.jpg" },
+    { title: "Leggende napoletane", slug: "leggende-napoletane", autore: "Matilde Serao", cover: "https://www.colonneselibrerie.it/wp-content/uploads/2026/02/9788899716868-1.jpg" },
+    { title: "Il ventre di Napoli", slug: "il-ventre-di-napoli", autore: "Matilde Serao", cover: "https://www.colonneselibrerie.it/wp-content/uploads/2026/01/9788806221430.jpg" }
+];
+---
+
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+      :root { 
+        --colonnese-red: #bc2026; 
+        --text-dark: #1a1a1a; 
+        --border: #e5e5e5; 
+        --bg-hero: #f4f5f7;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body { font-family: 'Inter', sans-serif; color: var(--text-dark); background: #fff; line-height: 1.6; overflow-x: hidden; }
+      .container { max-width: 1250px; margin: 0 auto; padding: 0 20px; }
+      
+      /* --- HEADER COLONNESE --- */
+      header { border-bottom: 1px solid var(--border); background: #fff; position: sticky; top: 0; z-index: 1000; height: 80px; display: flex; align-items: center; }
+      .nav-wrapper { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+      .logo img { height: 45px; width: auto; display: block; }
+
+      /* Desktop Nav */
+      .desktop-nav { display: flex; gap: 35px; list-style: none; margin: 0; padding: 0; }
+      .desktop-nav li a { 
+        text-decoration: none; 
+        color: var(--text-dark); 
+        font-size: 0.75rem; 
+        font-weight: 700; 
+        text-transform: uppercase; 
+        letter-spacing: 1px;
+        transition: color 0.3s ease;
+      }
+      .desktop-nav li a:hover { color: var(--colonnese-red); }
+
+      .search-area { display: flex; align-items: center; gap: 15px; }
+      .search-input { border: none; border-bottom: 1px solid #000; outline: none; padding: 5px; width: 100px; transition: 0.3s; font-size: 0.8rem; }
+      .search-input:focus { width: 150px; }
+      .search-btn { background: none; border: none; cursor: pointer; transition: color 0.2s; }
+      .search-btn:hover { color: var(--colonnese-red); }
+
+      .menu-toggle { display: none; background: none; border: none; font-size: 1.8rem; cursor: pointer; }
+
+      /* --- MOBILE MENU (FIXED TRANSITIONS) --- */
+      .mobile-menu { position: fixed; inset: 0; background: #fff; z-index: 2000; padding: 30px; display: none; flex-direction: column; }
+      .mobile-menu.active { display: flex; }
+      .close-btn { align-self: flex-end; font-size: 2.5rem; background: none; border: none; cursor: pointer; transition: color 0.3s; }
+      .close-btn:hover { color: var(--colonnese-red); }
+      
+      .mobile-links { list-style: none; margin-top: 40px; }
+      .mobile-links li { margin-bottom: 20px; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px; }
+      .mobile-links a { 
+        text-decoration: none; 
+        color: var(--text-dark); 
+        font-size: 1.2rem; 
+        font-weight: 600; 
+        text-transform: uppercase; 
+        transition: all 0.3s ease-in-out;
+        display: block;
+      }
+      .mobile-links a:hover { 
+        color: var(--colonnese-red); 
+        padding-left: 10px; /* Effetto traslazione al passaggio mouse */
+      }
+
+      /* --- HERO CAROUSEL --- */
+      .hero { padding: 40px 0; border-bottom: 1px solid var(--border); }
+      .carousel-container { background: var(--bg-hero); border-radius: 4px; position: relative; min-height: 520px; overflow: hidden; display: flex; }
+      .slide { position: absolute; inset: 0; opacity: 0; transition: 0.8s; display: flex; align-items: center; justify-content: center; padding: 40px 80px; gap: 60px; visibility: hidden; }
+      .slide.active { opacity: 1; visibility: visible; }
+      
+      /* Immagine Hero protetta */
+      .slide-img { flex: 0 0 300px; height: 450px; display: flex; align-items: center; justify-content: center; }
+      .slide-img img { max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(10px 10px 20px rgba(0,0,0,0.15)); }
+
+      .slide-txt { flex: 1; max-width: 550px; }
+      .slide-txt .author { font-size: 1rem; font-weight: 700; text-transform: uppercase; color: #666; letter-spacing: 2px; }
+      .slide-txt h2 { font-family: 'Lora', serif; font-size: 3.2rem; margin: 10px 0 20px; line-height: 1.1; font-weight: 400; }
+      .slide-txt p { font-size: 1.1rem; color: #444; margin-bottom: 30px; }
+      .btn { display: inline-block; background: var(--text-dark); color: #fff; text-decoration: none; padding: 16px 32px; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; transition: 0.3s; }
+      .btn:hover { background: var(--colonnese-red); transform: translateY(-3px); }
+      
+      .dots { position: absolute; bottom: 25px; left: 0; right: 0; display: flex; justify-content: center; gap: 10px; }
+      .dot { width: 10px; height: 10px; background: #ccc; border-radius: 50%; cursor: pointer; }
+      .dot.active { background: var(--colonnese-red); }
+
+      /* --- GRID LIBRI (Immagini ridimensionate, non tagliate) --- */
+      .colonnese-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 40px; margin-bottom: 80px; }
+      .libro-link { text-decoration: none; color: inherit; display: block; transition: transform 0.3s ease; }
+      .libro-link:hover { transform: translateY(-5px); }
+      
+      .copertina-box { 
+        background: #f9f9f9; 
+        padding: 20px; 
+        aspect-ratio: 2/3; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        border: 1px solid #eee; 
+        margin-bottom: 20px;
+        overflow: hidden;
+      }
+      .copertina-box img { 
+        max-width: 100%; 
+        max-height: 100%; 
+        object-fit: contain; /* Garantisce che l'immagine entri tutta nel campo */
+      }
+
+      /* --- FOOTER --- */
+      footer { background: #fdfdfd; border-top: 1px solid var(--border); padding: 80px 0 40px; }
+      .footer-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 50px; }
+      .f-col h4 { font-size: 0.8rem; text-transform: uppercase; margin-bottom: 25px; letter-spacing: 1px; font-weight: 700; }
+      .f-col ul { list-style: none; }
+      .f-col li { margin-bottom: 12px; }
+      .f-col a { text-decoration: none; color: #555; font-size: 0.9rem; transition: 0.3s; }
+      .f-col a:hover { color: var(--colonnese-red); }
+      .copy { text-align: center; margin-top: 60px; padding-top: 30px; border-top: 1px solid var(--border); color: #999; font-size: 0.8rem; line-height: 1.8; }
+
+      @media (max-width: 992px) {
+        .desktop-nav { display: none; }
+        .menu-toggle { display: block; }
+        .slide { flex-direction: column; text-align: center; padding: 40px 20px; gap: 30px; height: auto; }
+        .slide-img { flex: 0 0 auto; width: 180px; height: auto; }
+        .slide-txt h2 { font-size: 2.2rem; }
+        .carousel-container { min-height: 700px; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <button class="close-btn" id="closeMenu">&times;</button>
+      <ul class="mobile-links">
+        <li><a href="/libri">Libri</a></li>
+        <li><a href="/autori">Autori</a></li>
+        <li><a href="/catalogo">Catalogo</a></li>
+        <li><a href="/eventi">Eventi</a></li>
+        <li><a href="/collane">Collane</a></li>
+        <li><a href="/chi-siamo">La nostra storia</a></li>
+      </ul>
+    </div>
+
+    <header>
+      <div class="container nav-wrapper">
+        <div class="logo">
+          <a href="/"><img src="/colonnese-and-friends-logo-1772641468.jpg" alt="Colonnese Editore" /></a>
+        </div>
+        
+        <nav>
+          <ul class="desktop-nav">
+            <li><a href="/libri">Libri</a></li>
+            <li><a href="/autori">Autori</a></li>
+            <li><a href="/catalogo">Catalogo</a></li>
+            <li><a href="/eventi">Eventi</a></li>
+            <li><a href="/collane">Collane</a></li>
+          </ul>
+        </nav>
+
+        <div class="search-area">
+          <form action="/ricerca" method="GET" style="display: flex; align-items: center; gap: 5px;">
+            <input type="text" name="q" class="search-input" placeholder="Cerca...">
+            <button type="submit" class="search-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </button>
+          </form>
+          <button class="menu-toggle" id="openMenu">☰</button>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="container">
+        <div class="carousel-container">
+          {heroSlides.map((slide, index) => (
+            <div class={`slide ${index === 0 ? 'active' : ''}`}>
+              <div class="slide-img"><img src={slide.immagine} alt={slide.titolo.replace('<br>', ' ')} /></div>
+              <div class="slide-txt">
+                <p class="author">{slide.autore}</p>
+                <h2 set:html={slide.titolo} />
+                <p>{slide.descrizione}</p>
+                <a href={slide.link} class="btn">Scopri di più</a>
+              </div>
+            </div>
+          ))}
+          <div class="dots">
+            {heroSlides.map((_, i) => <div class={`dot ${i === 0 ? 'active' : ''}`} data-index={i}></div>)}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main class="container">
+       <div style="margin: 60px 0 40px; text-align: center;">
+          <h1 style="font-family: 'Lora', serif; font-size: 2.5rem; font-weight: 400;">In evidenza</h1>
+       </div>
+       
+       <div class="colonnese-grid">
+        {libriInEvidenza.map((l) => (
+          <a href={`/libri/${l.slug}`} class="libro-link">
+            <div class="copertina-box">
+              <img src={l.cover} alt={l.title} />
+            </div>
+            <p style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: #777;">{l.autore}</p>
+            <h3 style="font-family: 'Lora', serif; font-size: 1.2rem; margin-top: 5px;">{l.title}</h3>
+          </a>
+        ))}
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-cols">
+          <div class="f-col">
+            <h4>Menu</h4>
+            <ul>
+              <li><a href="/libri">Libri</a></li>
+              <li><a href="/autori">Autori</a></li>
+              <li><a href="/catalogo">Catalogo</a></li>
+              <li><a href="/eventi">Eventi</a></li>
+            </ul>
+          </div>
+          <div class="f-col">
+            <h4>Editoria</h4>
+            <ul>
+              <li><a href="/chi-siamo">La nostra storia</a></li>
+              <li><a href="/manoscritti">Invio Manoscritti</a></li>
+              <li><a href="/librerie">Le nostre Librerie</a></li>
+            </ul>
+          </div>
+          <div class="f-col">
+            <h4>Info Legali</h4>
+            <ul>
+              <li><a href="/faq">FAQ</a></li>
+              <li><a href="/termini">Termini</a></li>
+              <li><a href="/policy">Privacy</a></li>
+              <li><a href="/contatti">Contatti</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="copy">
+          &copy; 2026 Mazzei Librerie S.r.l. - P. Iva: IT08324731218<br>
+          Via San Pietro a Majella 32-33, 80138 Napoli - Italia
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // GESTIONE MENU MOBILE
+      const open = document.getElementById('openMenu');
+      const close = document.getElementById('closeMenu');
+      const menu = document.getElementById('mobileMenu');
+
+      open?.addEventListener('click', () => {
+        menu?.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Blocca lo scroll quando il menu è aperto
+      });
+
+      close?.addEventListener('click', () => {
+        menu?.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      });
+
+      // GESTIONE CAROSELLO HERO
+      const slides = document.querySelectorAll('.slide');
+      const dots = document.querySelectorAll('.dot');
+      let current = 0;
+
+      function updateCarousel(index) {
+        slides.forEach(s => s.classList.remove('active'));
+        dots.forEach(d => d.classList.remove('active'));
+        if(slides[index]) slides[index].classList.add('active');
+        if(dots[index]) dots[index].classList.add('active');
+        current = index;
+      }
+
+      dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => updateCarousel(i));
+      });
+
+      setInterval(() => {
+        let next = (current + 1) % slides.length;
+        updateCarousel(next);
+      }, 5000);
+    </script>
+  </body>
+</html>

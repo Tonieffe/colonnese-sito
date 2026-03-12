@@ -1,0 +1,127 @@
+---
+// src/pages/libri/index.astro
+const title = "Catalogo Completo | Colonnese Editore";
+
+// Simuliamo il database dei libri che arriverà da Keystatic
+const libri = [
+  { 
+    titolo: "Oscar Wilde il sogno italiano", 
+    autore: "Renato Miracco", 
+    prezzo: "18,00 €", 
+    slug: "oscar-wilde-il-sogno-italiano",
+    cover: "https://www.colonneselibrerie.it/wp-content/uploads/2026/03/9788899716493-1.jpg",
+    nuovo: true 
+  },
+  { 
+    titolo: "Leggende Napoletane", 
+    autore: "Matilde Serao", 
+    prezzo: "15,00 €", 
+    slug: "leggende-napoletane",
+    cover: "https://www.colonneselibrerie.it/wp-content/uploads/2026/02/9788899716868-1.jpg",
+    nuovo: false
+  },
+  // ... altri libri
+];
+---
+
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+      :root { --colonnese-red: #bc2026; --text-dark: #1a1a1a; --border: #e5e5e5; --bg-pale: #f9f9f9; }
+      body { font-family: 'Inter', sans-serif; color: var(--text-dark); background: #fff; margin: 0; }
+      
+      /* HEADER & NAV (Coerente con Home e Manoscritti) */
+      .main-header { border-bottom: 1px solid var(--border); padding: 30px 0; text-align: center; background: #fff; position: sticky; top: 0; z-index: 100; }
+      .logo { font-family: 'Lora', serif; font-size: 1.8rem; text-decoration: none; color: #000; text-transform: uppercase; letter-spacing: 4px; }
+      
+      .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+      /* HERO CATALOGO */
+      .catalog-header { padding: 80px 0; text-align: center; border-bottom: 1px solid var(--border); }
+      .catalog-header h1 { font-family: 'Lora', serif; font-size: 3.5rem; font-weight: 400; margin: 0; }
+      .catalog-header p { color: #666; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; margin-top: 15px; }
+
+      /* FILTRI (UI Pulita) */
+      .filters-bar { padding: 20px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: center; gap: 30px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+      .filter-item { cursor: pointer; color: #999; transition: 0.3s; }
+      .filter-item:hover, .filter-item.active { color: var(--colonnese-red); }
+
+      /* GRIGLIA LIBRI (Stesso stile Home) */
+      .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 60px 40px; padding: 80px 0; }
+      
+      .book-card { text-decoration: none; color: inherit; group; }
+      .cover-wrapper { 
+        background: var(--bg-pale); 
+        aspect-ratio: 2/3; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        padding: 30px; 
+        border: 1px solid var(--border);
+        margin-bottom: 20px;
+        transition: 0.4s ease;
+      }
+      .book-card:hover .cover-wrapper { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-color: var(--colonnese-red); }
+      
+      .cover-wrapper img { max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 5px 5px 15px rgba(0,0,0,0.1); }
+
+      .book-info h3 { font-family: 'Lora', serif; font-size: 1.25rem; margin: 0 0 5px 0; font-weight: 400; }
+      .book-info p { font-size: 0.85rem; color: #666; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
+      .price { display: block; margin-top: 10px; font-weight: 700; color: var(--text-dark); }
+
+      /* FOOTER */
+      footer { background: var(--text-dark); color: #fff; padding: 60px 0; text-align: center; }
+    </style>
+  </head>
+  <body>
+
+    <header class="main-header">
+      <a href="/" class="logo">Colonnese</a>
+    </header>
+
+    <main>
+      <section class="catalog-header">
+        <div class="container">
+          <h1>Il Catalogo</h1>
+          <p>Esplora le nostre edizioni dal 1965 ad oggi</p>
+        </div>
+      </section>
+
+      <nav class="filters-bar">
+        <span class="filter-item active">Tutti</span>
+        <span class="filter-item">Novità</span>
+        <span class="filter-item">Saggistica</span>
+        <span class="filter-item">Narrativa</span>
+        <span class="filter-item">Classici</span>
+      </nav>
+
+      <div class="container">
+        <div class="catalog-grid">
+          {libri.map((libro) => (
+            <a href={`/libri/${libro.slug}`} class="book-card">
+              <div class="cover-wrapper">
+                <img src={libro.cover} alt={libro.titolo} />
+              </div>
+              <div class="book-info">
+                <p>{libro.autore}</p>
+                <h3>{libro.titolo}</h3>
+                <span class="price">{libro.prezzo}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>© 1965-2026 Colonnese Editore</p>
+      </div>
+    </footer>
+
+  </body>
+</html>

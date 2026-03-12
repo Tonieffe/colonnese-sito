@@ -1,0 +1,124 @@
+---
+// src/pages/rassegna-stampa.astro
+const title = "Stampa e Recensioni | Colonnese Editore";
+
+// In Keystatic questo sarà un "Collection"
+const recensioni = [
+  {
+    testata: "Il Mattino",
+    data: "12 Febbraio 2026",
+    titolo: "La Napoli di Oscar Wilde: un viaggio tra i vicoli e la poesia",
+    estratto: "Colonnese riporta in libreria un'opera fondamentale per capire il legame tra l'esteta e la città...",
+    link: "#",
+    logo_testata: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Il_Mattino_logo.svg/512px-Il_Mattino_logo.svg.png"
+  },
+  {
+    testata: "La Repubblica",
+    data: "05 Gennaio 2026",
+    titolo: "Le Leggende Napoletane tornano a splendere",
+    estratto: "Una nuova edizione curata nei minimi dettagli che rende omaggio a Matilde Serao.",
+    link: "#",
+    logo_testata: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Logo_la_Repubblica.svg/512px-Logo_la_Repubblica.svg.png"
+  }
+];
+---
+
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+      :root { --colonnese-red: #bc2026; --text-dark: #1a1a1a; --border: #eee; }
+      body { font-family: 'Inter', sans-serif; color: var(--text-dark); background: #fff; margin: 0; line-height: 1.6; }
+      .container { max-width: 900px; margin: 0 auto; padding: 60px 20px; }
+      
+      .header-stampa { text-align: center; margin-bottom: 80px; }
+      .header-stampa h1 { font-family: 'Lora', serif; font-size: 3.5rem; font-weight: 400; margin-bottom: 10px; }
+      .header-stampa p { color: #666; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; }
+
+      .recensione-item { 
+        padding: 40px 0; 
+        border-bottom: 1px solid var(--border); 
+        display: flex; 
+        gap: 50px; 
+        align-items: flex-start;
+        transition: all 0.3s ease;
+      }
+      
+      /* Coerenza con le altre pagine: effetto hover */
+      .recensione-item:hover { background: #fdfdfd; padding-left: 20px; padding-right: 20px; margin-left: -20px; margin-right: -20px; }
+
+      .testata-box { flex: 0 0 140px; }
+      .testata-box img { 
+        width: 100%; 
+        height: auto; 
+        opacity: 0.5; 
+        filter: grayscale(100%); 
+        transition: 0.4s ease; 
+      }
+      .recensione-item:hover .testata-box img { opacity: 1; filter: grayscale(0%); }
+
+      .content-box { flex: 1; }
+      .data { font-size: 0.75rem; color: #aaa; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+      .content-box h2 { 
+        font-family: 'Lora', serif; 
+        font-size: 1.8rem; 
+        margin: 10px 0; 
+        font-weight: 400; 
+        line-height: 1.2;
+        transition: color 0.3s ease; 
+      }
+      .recensione-item:hover h2 { color: var(--colonnese-red); }
+      
+      .estratto { color: #555; font-size: 1.05rem; font-style: italic; margin-bottom: 20px; }
+      
+      /* Link coerente con lo stile Colonnese */
+      .link-articolo { 
+        display: inline-block; 
+        text-decoration: none; 
+        color: var(--text-dark); 
+        font-weight: 700; 
+        font-size: 0.75rem; 
+        text-transform: uppercase; 
+        letter-spacing: 1px;
+        padding-bottom: 5px;
+        border-bottom: 2px solid var(--colonnese-red);
+        transition: 0.3s;
+      }
+      .link-articolo:hover { color: var(--colonnese-red); border-bottom-color: var(--text-dark); }
+
+      @media (max-width: 600px) {
+        .recensione-item { flex-direction: column; gap: 20px; }
+        .testata-box { flex: 0 0 auto; width: 100px; }
+        .header-stampa h1 { font-size: 2.5rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <div class="header-stampa">
+        <p>Parlano di noi</p>
+        <h1>Dalla Stampa</h1>
+      </div>
+
+      <div class="lista-recensioni">
+        {recensioni.map((r) => (
+          <article class="recensione-item">
+            <div class="testata-box">
+              <img src={r.logo_testata} alt={r.testata} />
+            </div>
+            <div class="content-box">
+              <span class="data">{r.testata} — {r.data}</span>
+              <h2>{r.titolo}</h2>
+              <p class="estratto">"{r.estratto}"</p>
+              <a href={r.link} class="link-articolo">Leggi l'articolo integrale</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </main>
+
+    </body>
+</html>

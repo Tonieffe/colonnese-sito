@@ -1,0 +1,80 @@
+---
+// src/pages/faq.astro
+const title = "Termini e Policy | Colonnese Editore";
+---
+
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+      :root { --colonnese-red: #bc2026; --text-dark: #1a1a1a; --border: #e5e5e5; --bg-pale: #f9f9f9; }
+      body { font-family: 'Inter', sans-serif; color: var(--text-dark); background: #fff; margin: 0; line-height: 1.7; }
+      
+      .main-header { border-bottom: 1px solid var(--border); padding: 30px 0; text-align: center; background: #fff; position: sticky; top: 0; z-index: 100; }
+      .logo { font-family: 'Lora', serif; font-size: 1.8rem; text-decoration: none; color: #000; text-transform: uppercase; letter-spacing: 4px; }
+      
+      .container { max-width: 850px; margin: 0 auto; padding: 0 20px; }
+
+      /* HERO LEGALE */
+      .legal-header { padding: 80px 0; text-align: center; background: var(--bg-pale); border-bottom: 1px solid var(--border); }
+      .legal-header h1 { font-family: 'Lora', serif; font-size: 3rem; font-weight: 400; margin: 0; }
+      .legal-header p { color: #888; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; margin-top: 15px; }
+
+      /* CONTENUTO */
+      .legal-content { padding: 80px 0; }
+      h2 { font-family: 'Lora', serif; font-size: 1.8rem; margin: 50px 0 20px 0; color: var(--text-dark); border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+      h3 { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 30px; color: var(--colonnese-red); }
+      p, li { color: #444; font-size: 1rem; margin-bottom: 20px; }
+      ul { padding-left: 20px; }
+
+      footer { background: var(--text-dark); color: #fff; padding: 60px 0; text-align: center; margin-top: 100px; }
+    </style>
+  </head>
+  <body>
+
+    <header class="main-header">
+      <a href="/" class="logo">Colonnese</a>
+    </header>
+
+    <main>
+      <section class="legal-header">
+        <div class="container">
+          <p>Informazioni Legali</p>
+          <h1>Termini e Condizioni</h1>
+        </div>
+      </section>
+
+      <article class="container legal-content">
+        <h2>1. Condizioni di Vendita</h2>
+        <p>Le presenti condizioni generali di vendita disciplinano l'acquisto dei prodotti editoriali effettuato a distanza tramite la rete telematica sul sito colonnese.it. Ogni operazione di acquisto sarà regolata dalle disposizioni di cui al D.Lgs. 185/99 e, per quanto concerne la tutela della riservatezza, sarà sottoposta alla normativa di cui al D.Lgs. 196/03.</p>
+
+        <h3>Prezzi e Pagamenti</h3>
+        <p>Tutti i prezzi dei prodotti sono chiaramente indicati sul sito e si intendono comprensivi di IVA. Al prezzo del prodotto va aggiunto il costo di spedizione, il cui ammontare varia in base alla modalità di consegna richiesta.</p>
+
+        <h2>2. Diritto di Recesso</h2>
+        <p>Ai sensi dell'art. 5 del D.Lgs. 185/99, il cliente ha diritto di recedere dal contratto di acquisto per qualsiasi motivo, senza necessità di fornire spiegazioni e senza alcuna penalità, entro 14 giorni lavorativi dal ricevimento della merce.</p>
+
+        <h2>3. Privacy Policy</h2>
+        <p>Colonnese Editore si impegna a proteggere la privacy dei propri utenti. I dati raccolti tramite il sito verranno trattati secondo i principi di correttezza, liceità e trasparenza.</p>
+        <ul>
+          <li><strong>Titolare del trattamento:</strong> Colonnese Editore di Mazzei Librerie s.r.l.</li>
+          <li><strong>Finalità:</strong> Esecuzione degli ordini, invio newsletter (previo consenso), supporto clienti.</li>
+          <li><strong>Diritti:</strong> L'utente può richiedere in ogni momento la cancellazione o la modifica dei propri dati scrivendo a info@colonnese.it.</li>
+        </ul>
+
+        <h2>4. Cookie Policy</h2>
+        <p>Questo sito utilizza cookie tecnici e di terze parti per migliorare l'esperienza di navigazione e analizzare il traffico. Proseguendo la navigazione, accetti l'uso dei cookie secondo la nostra normativa.</p>
+      </article>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>© 1965-2026 Colonnese Editore — Tutti i diritti riservati.</p>
+      </div>
+    </footer>
+
+  </body>
+</html>

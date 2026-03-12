@@ -1,0 +1,77 @@
+---
+// src/pages/autori/[slug].astro
+export const prerender = true;
+
+// Simuliamo i dati dell'autore
+const autore = {
+  nome: "Matilde Serao",
+  foto: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Matilde_Serao.jpg/800px-Matilde_Serao.jpg",
+  bio: "Matilde Serao (Patrasso, 1856 – Napoli, 1927) è stata la prima donna italiana a fondare e dirigere un quotidiano, 'Il Mattino' di Napoli. La sua scrittura ha saputo indagare con precisione chirurgica e immenso amore le viscere di una Napoli divisa tra nobiltà e miseria.",
+};
+
+// Simuliamo i libri associati a questo autore
+const libriAssociati = [
+  { title: "Leggende napoletane", slug: "leggende-napoletane", cover: "https://www.colonneselibrerie.it/wp-content/uploads/2026/02/9788899716868-1.jpg" },
+  { title: "Il ventre di Napoli", slug: "il-ventre-di-napoli", cover: "https://www.colonneselibrerie.it/wp-content/uploads/2026/01/9788806221430.jpg" }
+];
+---
+
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <title>{autore.nome} - Colonnese Editore</title>
+    <style>
+      :root { --colonnese-red: #bc2026; --text-dark: #1a1a1a; }
+      body { font-family: 'Inter', sans-serif; line-height: 1.6; margin: 0; }
+      .container { max-width: 1100px; margin: 0 auto; padding: 60px 20px; }
+
+      .profilo-autore { display: grid; grid-template-columns: 350px 1fr; gap: 60px; margin-bottom: 80px; align-items: start; }
+      .foto-autore img { width: 100%; border: 1px solid #eee; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+
+      h1 { font-family: 'Lora', serif; font-size: 3rem; margin: 0 0 20px 0; font-weight: 400; }
+      .bio { font-size: 1.15rem; color: #444; margin-bottom: 40px; text-align: justify; border-left: 2px solid var(--colonnese-red); padding-left: 30px; }
+
+      .sezione-libri { border-top: 1px solid #eee; padding-top: 60px; }
+      .sezione-libri h2 { font-family: 'Lora', serif; font-size: 2rem; margin-bottom: 40px; }
+
+      /* Griglia Libri dell'autore */
+      .libri-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 30px; }
+      .libro-item { text-decoration: none; color: inherit; text-align: center; }
+      .cover-box { background: #f9f9f9; padding: 15px; border: 1px solid #eee; margin-bottom: 15px; aspect-ratio: 2/3; display: flex; align-items: center; justify-content: center; }
+      .cover-box img { max-width: 100%; max-height: 100%; object-fit: contain; transition: 0.3s; }
+      .libro-item:hover img { transform: scale(1.05); }
+      .libro-item h3 { font-size: 1rem; font-family: 'Lora', serif; margin: 10px 0; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a href="/autori" style="text-decoration: none; color: #888; margin-bottom: 40px; display: inline-block;">← Tutti gli autori</a>
+
+      <section class="profilo-autore">
+        <div class="foto-autore">
+          <img src={autore.foto} alt={autore.nome} />
+        </div>
+        <div class="testo-autore">
+          <h1>{autore.nome}</h1>
+          <div class="bio">
+            {autore.bio}
+          </div>
+        </div>
+      </section>
+
+      <section class="sezione-libri">
+        <h2>Opere in catalogo</h2>
+        <div class="libri-grid">
+          {libriAssociati.map((libro) => (
+            <a href={`/libri/${libro.slug}`} class="libro-item">
+              <div class="cover-box">
+                <img src={libro.cover} alt={libro.title} />
+              </div>
+              <h3>{libro.title}</h3>
+            </a>
+          ))}
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

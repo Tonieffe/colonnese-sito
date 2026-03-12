@@ -1,0 +1,107 @@
+---
+// src/pages/eventi/index.astro
+const title = "Eventi e Appuntamenti | Colonnese Editore";
+
+const eventi = [
+  {
+    titolo: "Presentazione: Oscar Wilde il sogno italiano",
+    slug: "presentazione-oscar-wilde",
+    data: "25 Marzo 2026",
+    ora: "18:30",
+    luogo: "Libreria Colonnese, Via San Pietro a Majella",
+    immagine: "https://www.colonneselibrerie.it/wp-content/uploads/2026/03/9788899716493-1.jpg",
+    estratto: "Incontro con l'autore Renato Miracco per scoprire i segreti del soggiorno napoletano di Wilde."
+  },
+  {
+    titolo: "Firmacopie con Matilde Serao (Evento Speciale)",
+    slug: "speciale-matilde-serao",
+    data: "10 Aprile 2026",
+    ora: "11:00",
+    luogo: "Piazza Bellini, Napoli",
+    immagine: "https://www.colonneselibrerie.it/wp-content/uploads/2026/02/9788899716868-1.jpg",
+    estratto: "Un viaggio nel tempo tra le leggende napoletane nel cuore del centro storico."
+  }
+];
+---
+
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <title>{title}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+      :root { --colonnese-red: #bc2026; --bg-gray: #f8f9fa; }
+      body { font-family: 'Inter', sans-serif; background: #fff; margin: 0; }
+      .container { max-width: 1000px; margin: 0 auto; padding: 60px 20px; }
+      
+      .header-eventi { text-align: center; margin-bottom: 60px; }
+      .header-eventi h1 { font-family: 'Lora', serif; font-size: 3rem; margin-bottom: 10px; }
+
+      .event-card { 
+        display: flex; 
+        gap: 30px; 
+        background: #fff; 
+        border: 1px solid #eee; 
+        margin-bottom: 40px; 
+        padding: 20px;
+        transition: 0.3s;
+        text-decoration: none;
+        color: inherit;
+      }
+      .event-card:hover { border-color: var(--colonnese-red); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+
+      .event-date-box { 
+        flex: 0 0 120px; 
+        text-align: center; 
+        background: var(--bg-gray); 
+        display: flex; 
+        flex-direction: column; 
+        justify-content: center;
+        border-radius: 4px;
+      }
+      .date-day { font-size: 1.8rem; font-weight: 700; color: var(--colonnese-red); }
+      .date-month { text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+
+      .event-img { flex: 0 0 150px; }
+      .event-img img { width: 100%; height: 100%; object-fit: cover; }
+
+      .event-info { flex: 1; }
+      .event-info h2 { font-family: 'Lora', serif; font-size: 1.5rem; margin: 0 0 10px 0; }
+      .event-meta { font-size: 0.85rem; color: #777; margin-bottom: 15px; }
+      .event-meta span { margin-right: 15px; }
+      
+      .btn-dettagli { color: var(--colonnese-red); font-weight: 700; text-transform: uppercase; font-size: 0.75rem; }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <div class="header-eventi">
+        <h1>Appuntamenti</h1>
+        <p>Incontri, presentazioni e fiere del libro</p>
+      </div>
+
+      <div class="event-list">
+        {eventi.map((e) => (
+          <a href={`/eventi/${e.slug}`} class="event-card">
+            <div class="event-date-box">
+              <span class="date-day">{e.data.split(' ')[0]}</span>
+              <span class="date-month">{e.data.split(' ')[1]}</span>
+            </div>
+            <div class="event-img">
+              <img src={e.immagine} alt={e.titolo} />
+            </div>
+            <div class="event-info">
+              <div class="event-meta">
+                <span>🕒 {e.ora}</span>
+                <span>📍 {e.luogo}</span>
+              </div>
+              <h2>{e.titolo}</h2>
+              <p style="color: #555; font-size: 0.95rem;">{e.estratto}</p>
+              <span class="btn-dettagli">Scopri di più →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </main>
+  </body>
+</html>

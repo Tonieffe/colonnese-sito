@@ -1,0 +1,66 @@
+---
+// src/pages/eventi/[slug].astro
+export const prerender = true;
+
+const evento = {
+  titolo: "Presentazione: Oscar Wilde il sogno italiano",
+  data: "Mercoledì 25 Marzo 2026",
+  ora: "18:30",
+  luogo: "Libreria Colonnese, Via San Pietro a Majella 32/33, Napoli",
+  descrizione: "Un appuntamento imperdibile per gli amanti della grande letteratura. Renato Miracco presenterà la sua ultima ricerca su Oscar Wilde, svelando lettere inedite e aneddoti sul legame tra lo scrittore irlandese e la città di Napoli. Seguirà firmacopie.",
+  mappa_url: "https://www.google.com/maps/embed?pb=...", // Qui andrà l'iframe di Google Maps
+  immagine: "https://www.colonneselibrerie.it/wp-content/uploads/2026/03/9788899716493-1.jpg"
+};
+---
+
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <title>{evento.titolo}</title>
+    <style>
+      :root { --colonnese-red: #bc2026; }
+      body { font-family: 'Inter', sans-serif; line-height: 1.6; }
+      .container { max-width: 900px; margin: 0 auto; padding: 60px 20px; }
+
+      .event-header { text-align: center; margin-bottom: 50px; }
+      .event-header h1 { font-family: 'Lora', serif; font-size: 2.8rem; margin: 10px 0; }
+      
+      .event-main { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; margin-bottom: 50px; }
+      .event-image img { width: 100%; border: 1px solid #eee; }
+
+      .info-box { background: #f9f9f9; padding: 30px; border-left: 4px solid var(--colonnese-red); }
+      .info-box p { margin: 10px 0; font-weight: 600; }
+      
+      .descrizione-estesa { font-size: 1.1rem; color: #333; margin: 40px 0; }
+      
+      .mappa { width: 100%; height: 350px; background: #eee; margin-top: 40px; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a href="/eventi" style="text-decoration: none; color: #888;">← Torna al calendario</a>
+      
+      <div class="event-header">
+        <p style="color: var(--colonnese-red); font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">Incontro con l'Autore</p>
+        <h1>{evento.titolo}</h1>
+      </div>
+
+      <div class="event-main">
+        <div class="event-image">
+          <img src={evento.immagine} alt="Locandina" />
+        </div>
+        <div class="event-details">
+          <div class="info-box">
+            <p>📅 {evento.data}</p>
+            <p>🕒 Ore {evento.ora}</p>
+            <p>📍 {evento.luogo}</p>
+          </div>
+          <div class="descrizione-estesa">
+            {evento.descrizione}
+          </div>
+          <button style="background: var(--colonnese-red); color: white; border: none; padding: 15px 30px; font-weight: 700; cursor: pointer; width: 100%;">Aggiungi al Calendario</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

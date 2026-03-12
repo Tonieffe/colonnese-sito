@@ -1,0 +1,46 @@
+---
+// src/layouts/MainLayout.astro
+const { title } = Astro.props;
+---
+
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} | Colonnese Editore</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style is:global>
+      :root { --colonnese-red: #bc2026; --text-dark: #1a1a1a; --border: #e5e5e5; }
+      body { font-family: 'Inter', sans-serif; margin: 0; color: var(--text-dark); }
+      
+      .main-header { border-bottom: 1px solid var(--border); padding: 30px 0; text-align: center; background: #fff; position: sticky; top: 0; z-index: 100; }
+      .logo { font-family: 'Lora', serif; font-size: 1.8rem; text-decoration: none; color: #000; text-transform: uppercase; letter-spacing: 4px; }
+      
+      nav.main-nav { margin-top: 20px; display: flex; justify-content: center; gap: 20px; }
+      .nav-link { text-decoration: none; color: #666; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+      .nav-link:hover { color: var(--colonnese-red); }
+
+      footer { background: var(--text-dark); color: #fff; padding: 80px 0; margin-top: 100px; text-align: center; }
+    </style>
+  </head>
+  <body>
+    <header class="main-header">
+      <a href="/" class="logo">Colonnese</a>
+      <nav class="main-nav">
+        <a href="/libri" class="nav-link">Libri</a>
+        <a href="/autori" class="nav-link">Autori</a>
+        <a href="/collane" class="nav-link">Collane</a>
+        <a href="/eventi" class="nav-link">Eventi</a>
+        <a href="/contatti" class="nav-link">Contatti</a>
+      </nav>
+    </header>
+
+    <slot /> <footer>
+      <p>© 1965-2026 Colonnese Editore — Napoli</p>
+      <nav style="display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
+        <a href="/faq" style="color: #999; text-decoration: none; font-size: 0.8rem;">FAQ</a>
+        <a href="/policy" style="color: #999; text-decoration: none; font-size: 0.8rem;">Privacy</a>
+      </nav>
+    </footer>
+  </body>
+</html>
